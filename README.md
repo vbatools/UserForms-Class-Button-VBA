@@ -1,5 +1,7 @@
 # clsButtonIcon - Double Icon Button Class for VBA UserForms
 
+![Project Demo](User_Forms.gif)
+
 ## Description
 
 `clsButtonIcon` is a VBA class that implements an interactive double icon button for use in Excel VBA UserForms. The class manages two Label controls (outer and inner), creating a unique visual element with the ability to change state and color on mouse hover.
