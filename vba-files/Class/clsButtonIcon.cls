@@ -9,6 +9,15 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
+'========================================================================================
+' Class: clsButtonIcon
+' Author: VBATools
+' Version: 1.0.1
+' Creation Date: 10.12.2025 11:41
+' Last Update Date: 10.12.2025 12:15
+' License: Apache License
+'========================================================================================
+
 Private Const FONT_NAME_ICON As String = "Segoe MDL2 Assets"
 
 Private WithEvents mLabelMain As MSForms.Label
@@ -85,7 +94,7 @@ Private Function VersionItem(ByVal Parametr As enumParametrVersion) As String
         Case enumParametrVersion.enDateOfUpdate:
             VersionItem = "Date of update: 10.12.2025 12:15"
         Case enumParametrVersion.enDescription:
-            VersionItem = "Description: "
+            VersionItem = "Description: Сlass that implements an interactive double icon button for use in Excel VBA UserForms. The class manages two Label controls (outer and inner), creating a unique visual element with the ability to change state and color on mouse hover."
     End Select
 End Function
 
@@ -117,6 +126,9 @@ End Property
 
 Public Property Let IconCodeOutOn(ByVal Code As String)
     Call errRaise
+    If Len(Code) = 0 Then
+        Call Err.Raise(Number:=vbObjectError + 105, Description:="IconCodeOutOn cannot be empty. Please provide a valid icon code.", Source:=TypeName(Me))
+    End If
     mIconCodeOutOn = Code
     Call ChangeStaet(Me)
 End Property
@@ -128,6 +140,9 @@ End Property
 
 Public Property Let IconCodeOutOff(ByVal Code As String)
     Call errRaise
+    If Len(Code) = 0 Then
+        Call Err.Raise(Number:=vbObjectError + 106, Description:="IconCodeOutOff cannot be empty. Please provide a valid icon code.", Source:=TypeName(Me))
+    End If
     mIconCodeOutOff = Code
     Call ChangeStaet(Me)
 End Property
@@ -139,6 +154,9 @@ End Property
 
 Public Property Let IconCodeInOn(ByVal Code As String)
     Call errRaise
+    If Len(Code) = 0 Then
+        Call Err.Raise(Number:=vbObjectError + 107, Description:="IconCodeInOn cannot be empty. Please provide a valid icon code.", Source:=TypeName(Me))
+    End If
     mIconCodeInOn = Code
     Call ChangeStaet(Me)
 End Property
@@ -150,6 +168,9 @@ End Property
 
 Public Property Let IconCodeInOff(ByVal Code As String)
     Call errRaise
+    If Len(Code) = 0 Then
+        Call Err.Raise(Number:=vbObjectError + 108, Description:="IconCodeInOff cannot be empty. Please provide a valid icon code.", Source:=TypeName(Me))
+    End If
     mIconCodeInOff = Code
     Call ChangeStaet(Me)
 End Property
@@ -161,6 +182,9 @@ End Property
 
 Public Property Let SizeOut(ByVal Size As Single)
     Call errRaise
+    If Size <= 0 Then
+        Call Err.Raise(Number:=vbObjectError + 109, Description:="SizeOut must be greater than 0. Current value: " & Size, Source:=TypeName(Me))
+    End If
     msnSizeOut = Size
 End Property
 
@@ -171,6 +195,9 @@ End Property
 
 Public Property Let SizeIn(ByVal Size As Single)
     Call errRaise
+    If Size <= 0 Then
+        Call Err.Raise(Number:=vbObjectError + 110, Description:="SizeIn must be greater than 0. Current value: " & Size, Source:=TypeName(Me))
+    End If
     msnSizeIn = Size
 End Property
 
@@ -281,7 +308,7 @@ End Property
 
 Private Sub errRaise()
     If mLabelMain Is Nothing Then
-        Call Err.Raise(Number:=vbObjectError + 100, Description:="Item button is not set", Source:=TypeName(Me))
+        Call Err.Raise(Number:=vbObjectError + 100, Description:="Button item is not set. Please initialize the button using the Initialize method before using its properties or methods.", Source:=TypeName(Me))
     End If
 End Sub
 
@@ -296,7 +323,23 @@ Public Sub Initialize(ByRef Label As MSForms.Label, _
         ByVal InColorOn As XlRgbColor, _
         Optional Value As Boolean = True, _
         Optional HoverOn As Boolean = True)
-
+    
+    ' Проверка корректности входных данных
+    If Label Is Nothing Then
+        Call Err.Raise(Number:=vbObjectError + 101, Description:="Label parameter cannot be Nothing. Please provide a valid MSForms.Label control.", Source:=TypeName(Me))
+    End If
+    
+    If Label.height <= 0 Then
+        Call Err.Raise(Number:=vbObjectError + 103, Description:="Label height must be greater than 0. Current height: " & Label.height, Source:=TypeName(Me))
+    End If
+    
+    If Label.width <= 0 Then
+        Call Err.Raise(Number:=vbObjectError + 104, Description:="Label width must be greater than 0. Current width: " & Label.width, Source:=TypeName(Me))
+    End If
+    
+    ' Проверка, что шрифт иконки доступен
+    ' Note: Проверка доступности шрифта может быть сложной в VBA, поэтому пропускаем эту проверку
+    
     Set mLabelMain = Label
     Set mParent = Label.Parent
     mName = mLabelMain.Name
