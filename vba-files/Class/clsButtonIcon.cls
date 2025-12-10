@@ -94,7 +94,7 @@ Private Function VersionItem(ByVal Parametr As enumParametrVersion) As String
         Case enumParametrVersion.enDateOfUpdate:
             VersionItem = "Date of update: 10.12.2025 12:15"
         Case enumParametrVersion.enDescription:
-            VersionItem = "Description: Сlass that implements an interactive double icon button for use in Excel VBA UserForms. The class manages two Label controls (outer and inner), creating a unique visual element with the ability to change state and color on mouse hover."
+            VersionItem = "Description: Class that implements an interactive double icon button for use in Excel VBA UserForms. The class manages two Label controls (outer and inner), creating a unique visual element with the ability to change state and color on mouse hover."
     End Select
 End Function
 
