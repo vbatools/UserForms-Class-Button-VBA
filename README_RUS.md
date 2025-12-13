@@ -1,5 +1,7 @@
 # clsButtonIcon - Класс двойной иконки-кнопки для VBA UserForms
 
+**Русский** | [English](README.md) | [UserForms-Class-ALL](https://github.com/vbatools/UserForms-Class-ALL/blob/main/README_RUS.md)
+
 ![Project Demo](User_Forms.gif)
 
 ## Описание
